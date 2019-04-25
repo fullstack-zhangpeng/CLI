@@ -1,4 +1,4 @@
-// Copyright © 2019 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2019 zhangpeng zhangpeng.0304@aliyun.com
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,24 +15,46 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
 
 // jsonCmd represents the json command
 var jsonCmd = &cobra.Command{
-	Use:   "json",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "s2o",
+	Short: "string -> json, output",
+	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := "{\n  \"workNumber\" : \"z003605\",\n  \"name\" : \"zhangpeng\",\n  \"email\" : \"zhangpeng01@zuoyebang.com\",\n  \"personalInfo\" : {\n    \"age\" : 18,\n    \"phone\" : \"15810746400\",\n    \"maritalStatus\" : true,\n    \"address\" : \"Beijing\"\n  },\n  \"workInfo\" : {\n    \"jobs\" : \"RD\",\n    \"position\" : \"iOS Developer\",\n    \"department\" : \"HuanXiong\"\n  }\n}"
-		fmt.Println(s)
+		if len(args) != 1 {
+			fmt.Println("param error, please check and try again")
+			return
+		}
+		// "{\"workNumber\":\"0000\",\"name\":\"zhangpeng\",\"email\":\"zhangpeng.0304@aliyun.com\",\"personalInfo\":{\"age\":18,\"phone\":\"00000000000\",\"maritalStatus\":true,\"address\":\"Beijing\"},\"workInfo\":{\"jobs\":\"RD\",\"position\":\"iOS Developer\",\"department\":\"HuanXiong\"}}"
+		jsonString := strings.TrimSpace(string(args[0]))
+
+		if !json.Valid([]byte(jsonString)) {
+			fmt.Println("invalid json")
+		}
+
+		fmt.Println("---------------------------")
+
+		var m map[string]interface{}
+		/// 反序列化
+		err := json.Unmarshal([]byte(jsonString), &m)
+		if err != nil {
+			panic(err)
+		}
+
+		/// 序列化
+		data, err := json.MarshalIndent(m, "", "    ")
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println(string(data))
 	},
 }
 
