@@ -45,13 +45,15 @@ var jsonCmd = &cobra.Command{
 		/// 反序列化
 		err := json.Unmarshal([]byte(jsonString), &m)
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
+			return
 		}
 
 		/// 序列化
 		data, err := json.MarshalIndent(m, "", "    ")
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
+			return
 		}
 
 		fmt.Println(string(data))
