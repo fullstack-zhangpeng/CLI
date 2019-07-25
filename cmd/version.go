@@ -19,7 +19,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	conf "CLI/conf"
+	"CLI/conf"
 )
 
 // versionCmd represents the version command

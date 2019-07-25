@@ -26,7 +26,7 @@ import (
 // ipCmd represents the ip command
 var ipCmd = &cobra.Command{
 	Use:   "ip",
-	Short: "Display local IP",
+	Short: "local IP",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		var ip []byte
