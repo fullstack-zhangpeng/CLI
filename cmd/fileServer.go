@@ -43,28 +43,28 @@ const fs_maxbufsize = 4096 // 4096 bits = default page size on OSX
 
 // fileServer represents the fileServer command
 var fileServer = &cobra.Command{
-	Use:   "fileServer",
-	Short: "share file to other people",
-	Long:  ``,
+	Use:   "fileserver",
+	Short: "set up file server",
+	Long:  `share file to other people`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// 要共享的文件夹
 		var dir string
 
-		fmt.Println("请选择要共享的文件夹: ")
+		fmt.Println("please select the folder you want to share: ")
 		_, _ = fmt.Scanln(&dir)
 
 		if len(dir) <= 0 {
-			fmt.Println("未选择文件夹，程序结束！")
+			fmt.Println("unselected folder, the program is over!")
 			return
 		}
 
 		var port string
-		fmt.Println("请输入端口: ")
+		fmt.Println("please enter port: ")
 		_, _ = fmt.Scanln(&port)
 
 		if len(port) <= 0 {
 			port = "3344"
-			fmt.Println("未指定端口，默认使用 3344！")
+			fmt.Println("no port specified, default is 3344!")
 		}
 
 		// Command line parsing

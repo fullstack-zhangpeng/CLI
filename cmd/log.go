@@ -48,5 +48,5 @@ var log = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(log)
+	//rootCmd.AddCommand(log)
 }
